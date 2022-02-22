@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 #hyperparameters are the alpha and epoch
 alpha = 0.001 #dr harrison said smaller numbers are better
-max_epoch = 100 #42 just bc of hitchikers guide to the galaxy
+max_epoch = 100 #epochs are just the number of iterations
 num_features = 11 #because there are 11 in this specific dataset
 weights = []
 for x in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
