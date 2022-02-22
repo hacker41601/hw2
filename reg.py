@@ -65,7 +65,7 @@ epoch = 1
 #print(wine[:,0]) #prints first column
 #print(wine[0,:]) #prints first row
 #print(type(wine))
-
+#https://www.kite.com/python/answers/how-to-iterate-through-columns-of-a-numpy-array-in-python
 def normalize(dataset):
     columns = dataset.shape[1]
     print(columns-1)
