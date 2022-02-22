@@ -8,33 +8,56 @@ import matplotlib.pyplot as plt
 #Author: Monynich Kiem
 #Date: Feb. 21. 2022
 #Desc: Linear regression and polynomial expansion program using csv data being read in
+'''
+def hypothesis(theta, dataset_x):
+    return theta*dataset_x
+#hypothesis(theta, dataset_x)
+
+def cost(dataset_x, dataset_y, theta):
+    y_h = hypothesis(theta, dataset_x)
+    #print(y_h)
+    cost = np.sum((y_h - dataset_y**2)/(2*m))
+    #print(cost)
+    return cost
+#cost(x,y, theta)
+
+def gradient(dataset_x, dataset_y, theta, alpha, epoch):
+    cost_iter = []
+    curr_epoch = 0
+    while curr_epoch < epoch:
+        y_h = hypothesis(theta, dataset_x)
+        y_h = np.sum(y_h, axis = 1)
+        for c in range(0, len(dataset_x.columns)):
+            theta[c] = theta[c] - alpha * sum((y_h-dataset_y)*dataset_x.iloc[:,c])/len(dataset_x)
+            j = cost(dataset_x, dataset_y, theta)
+            cost_iter.append(j)
+    return cost_iter, j, theta
+
+#print(theta[0])
+cost_iter, j, theta = gradient(x, y, theta, alpha, epoch)
+#print(theta)
+'''
 
 #hyperparameters are the alpha and epoch
 alpha = 0.001 #dr harrison said smaller numbers are better
-max_epoch = 100 #epochs are just the number of iterations
+max_epoch = 10 #epochs are just the number of iterations
 num_features = 11 #because there are 11 in this specific dataset
 weights = []
-for x in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
-    weights.append(random()) #ranadomize float between 0 to 1
-weights = np.array(weights)
+#for x in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
+#    weights.append(random()) #ranadomize float between 0 to 1
+#weights = np.array(weights)
 #print(type(weights))
 #print(weights)
 MSE = []
-
+'''
 wine = pd.read_csv('winequality-red.csv')
 wine = pd.concat([pd.Series(1, index = wine.index, name = 'theta0'), wine], axis = 1)
 print(wine.head())
+m = len(wine)
 x = wine.drop(columns = 'quality') #input variables
-print(x)
+#print(x.to_numpy())
 y = wine.iloc[:,12] #output variable
-print(y)
-
-def normalize(dataset):
-    for column in x:
-        dataset[column] = dataset[column]/np.max(dataset[column])
-    print(dataset.head())
-
-normalize(x)
+#print(y.to_numpy())
 '''
 #pt 1--------------------------------------------------------------------------
 wine = np.loadtxt('winequality-red.csv', delimiter = ',', skiprows = 1)
@@ -43,9 +66,19 @@ epoch = 1
 #print(wine[0,:]) #prints first row
 #print(type(wine))
 
+def normalize(dataset):
+    columns = dataset.shape[1]
+    for i in range(columns):
+        dataset[:,i] = dataset[:,i]/np.max(dataset[:,i])
+normalize(wine)
+'''
+cols = wine.shape[1]
+for i in range(cols):
+    wine[:,i] = wine[:,i]/np.max(wine[:,i])
+'''
 while epoch <= max_epoch:
     ex = 0
-    for x in wine:
+    for i in wine:
         entry = np.array(wine[ex])
         #print(entry)
         feat = entry[:-1] #only the features doesnt include the quality rating
@@ -56,7 +89,7 @@ while epoch <= max_epoch:
         #print(np.shape(input))
         #print(type(input))
         weights = []
-        for x in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
+        for j in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
             weights.append(random()) #ranadomize float between 0 to 1
         weights = np.array(weights)
         hypothesis = np.dot((np.transpose(weights)), input) #scalar
@@ -89,7 +122,7 @@ while epoch <= max_epoch:
     epoch += 1
 
 print(weights)
-'''
+
 '''
 x1 = [i[0] for i in wine]
 x2 = x1
