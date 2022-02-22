@@ -21,6 +21,21 @@ weights = np.array(weights)
 #print(weights)
 MSE = []
 
+wine = pd.read_csv('winequality-red.csv')
+wine = pd.concat([pd.Series(1, index = wine.index, name = 'theta0'), wine], axis = 1)
+print(wine.head())
+x = wine.drop(columns = 'quality') #input variables
+print(x)
+y = wine.iloc[:,12] #output variable
+print(y)
+
+def normalize(dataset):
+    for column in x:
+        dataset[column] = dataset[column]/np.max(dataset[column])
+    print(dataset.head())
+
+normalize(x)
+'''
 #pt 1--------------------------------------------------------------------------
 wine = np.loadtxt('winequality-red.csv', delimiter = ',', skiprows = 1)
 epoch = 1
@@ -74,7 +89,7 @@ while epoch <= max_epoch:
     epoch += 1
 
 print(weights)
-
+'''
 '''
 x1 = [i[0] for i in wine]
 x2 = x1
@@ -96,3 +111,4 @@ plt.scatter(x2, y2, color="blue", label="Model Prediction")
 plt.legend(loc="best")
 plt.show()
 '''
+
