@@ -68,14 +68,12 @@ epoch = 1
 
 def normalize(dataset):
     columns = dataset.shape[1]
-    for i in range(columns):
+    print(columns-1)
+    for i in range(columns-1):
         dataset[:,i] = dataset[:,i]/np.max(dataset[:,i])
 normalize(wine)
-'''
-cols = wine.shape[1]
-for i in range(cols):
-    wine[:,i] = wine[:,i]/np.max(wine[:,i])
-'''
+print(wine)
+
 while epoch <= max_epoch:
     ex = 0
     for i in wine:
