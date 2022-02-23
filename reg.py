@@ -55,6 +55,7 @@ def sgdp(dataset, max_epoch, alpha):
             for j in range(len(input)): #+1 is to account for the size being increased since the first input is always 1 which i inserted
                 weights.append(random()) #ranadomize float between 0 to 1
             weights = np.array(weights)
+            
             hypothesis = np.dot((np.transpose(weights)), input) #scalar
             #print(hypothesis)
             #print(type(hypothesis))
