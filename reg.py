@@ -24,42 +24,25 @@ max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuf
 #print(weights)
 MSE = []
 
-'''
-wine = pd.read_csv('winequality-red.csv')
-wine = pd.concat([pd.Series(1, index = wine.index, name = 'theta0'), wine], axis = 1)
-print(wine.head())
-m = len(wine)
-x = wine.drop(columns = 'quality') #input variables
-x = x.to_numpy()
-y = wine.iloc[:,12] #output variable
-y = y.to_numpy()
-'''
 #pt 1--------------------------------------------------------------------------
-wine = np.loadtxt('winequality-red.csv', delimiter = ',', skiprows = 1)
-curr_epoch = 0
-#num_features = len(wine[0,:])-1 #does not include the output/target class label
-#print(num_features)
-#print(wine[:,0]) #prints first column
-#print(wine[0,:]) #prints first row
-#print(type(wine))
-#https://www.kite.com/python/answers/how-to-iterate-through-columns-of-a-numpy-array-in-python
-def normalize(dataset):
-    columns = dataset.shape[1]
-    #print(columns-1)
-    for i in range(columns-1):
-        dataset[:,i] = dataset[:,i]/np.max(dataset[:,i])
-normalize(wine)
-#print(wine)
+wine1 = pd.read_csv('winequality-red.csv')
+#print(wine1.head())
+wine1=(wine1-wine1.min())/(wine1.max()-wine1.min())
+wine1 = pd.concat([pd.Series(1, index = wine1.index, name = 'x0'), wine1], axis = 1)
+#print(normalized_wine1)
+#print(wine1)
+#m = len(wine1)
+x = wine1.drop(columns = 'quality') #input variables
+#print(x)
+y = wine1.iloc[:,12] #output variable
+#print(y)
 
-def sgd(dataset, max_epoch, alpha):
+def sgdp(dataset, max_epoch, alpha):
     curr_epoch = 0
     while curr_epoch <= max_epoch:
         ex = 0
         for i in dataset:
-            all_data = np.array(dataset[ex])
-            inputs = all_data[:-1] #only the features doesnt include the quality rating
-            #print(inputs)
-            input = np.insert(inputs, 0, 1.0) #x0 is always 1
+            input = x.loc[ex]
             #sgd uses randomized weights and handles a vector at a time
             #print(input)
             #print(np.shape(weights))
@@ -68,14 +51,14 @@ def sgd(dataset, max_epoch, alpha):
             
             #initializing the random weights
             weights = []
-            for j in range(len(wine[0,:])): #+1 is to account for the size being increased since the first input is always 1 which i inserted
+            for j in range(len(input)): #+1 is to account for the size being increased since the first input is always 1 which i inserted
                 weights.append(random()) #ranadomize float between 0 to 1
             weights = np.array(weights)
             hypothesis = np.dot((np.transpose(weights)), input) #scalar
             #print(hypothesis)
             #print(type(hypothesis))
-            
-            pred = dataset[ex][(len(dataset[0,:])-1)]
+            y = wine1.iloc[:,12] #output variable
+            pred = y.loc[ex]
             #print(pred)
         
             raw_err = hypothesis - pred #scalar
@@ -104,5 +87,5 @@ def sgd(dataset, max_epoch, alpha):
 
     print(weights)
 
-sgd(wine, max_epoch, alpha)
-#end pt 1 -----------------------------------------------------------------------------
+sgdp(wine1, max_epoch, alpha)
+
