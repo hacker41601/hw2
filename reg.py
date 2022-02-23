@@ -32,6 +32,8 @@ wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1
 #print(normalized_wine)
 #print(wine)
 #m = len(wine)
+#num_cols = len(wine.columns)
+#print(len(wine.columns))
 #x = wine.drop(columns = 'quality') #input variables
 #print(x)
 #y = wine.iloc[:,12] #output variable
@@ -61,7 +63,7 @@ def sgdp(dataset, max_epoch, alpha):
             hypothesis = np.dot((np.transpose(weights)), input) #scalar
             #print(hypothesis)
             #print(type(hypothesis))
-            y = dataset.iloc[:,12] #output variable
+            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable
             pred = y.loc[ex]
             #print(pred)
         
