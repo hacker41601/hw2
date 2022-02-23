@@ -9,35 +9,6 @@ import matplotlib.pyplot as plt
 #Date: Feb. 21. 2022
 #Desc: Linear regression and polynomial expansion program using csv data being read in
 #using SGD since it's allegedly faster
-'''
-def hypothesis(theta, dataset_x):
-    return theta*dataset_x
-#hypothesis(theta, dataset_x)
-
-def cost(dataset_x, dataset_y, theta):
-    y_h = hypothesis(theta, dataset_x)
-    #print(y_h)
-    cost = np.sum((y_h - dataset_y**2)/(2*m))
-    #print(cost)
-    return cost
-#cost(x,y, theta)
-
-def gradient(dataset_x, dataset_y, theta, alpha, epoch):
-    cost_iter = []
-    curr_epoch = 0
-    while curr_epoch < epoch:
-        y_h = hypothesis(theta, dataset_x)
-        y_h = np.sum(y_h, axis = 1)
-        for c in range(0, len(dataset_x.columns)):
-            theta[c] = theta[c] - alpha * sum((y_h-dataset_y)*dataset_x.iloc[:,c])/len(dataset_x)
-            j = cost(dataset_x, dataset_y, theta)
-            cost_iter.append(j)
-    return cost_iter, j, theta
-
-#print(theta[0])
-cost_iter, j, theta = gradient(x, y, theta, alpha, epoch)
-#print(theta)
-'''
 
 #hyperparameters are the alpha and epoch
 alpha = 0.001 #dr harrison said smaller numbers are better
@@ -50,6 +21,8 @@ weights = []
 #print(type(weights))
 #print(weights)
 MSE = []
+
+#attempt at pandas usage but kept getting errors b/c unable to iterate a row at a time?
 '''
 wine = pd.read_csv('winequality-red.csv')
 wine = pd.concat([pd.Series(1, index = wine.index, name = 'theta0'), wine], axis = 1)
