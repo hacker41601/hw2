@@ -104,25 +104,3 @@ def sgd(dataset, max_epoch, alpha):
     print(weights)
 
 sgd(wine, max_epoch, alpha)
-
-'''
-x1 = [i[0] for i in wine]
-x2 = x1
-y1 = [i[num_features] for i in wine]
-y2 = []
-ex = 0
-for j in wine:
-    entry = np.array(wine[ex])
-    #print(entry)
-    feat = entry[:-1] #only the features doesnt include the quality rating
-    input = np.insert(feat, 0, 1.0) #x0 is always 1
-    y2.append(np.dot((np.transpose(weights)), input))
-    ex += 1
-    
-plt.xlabel("Inputs")
-plt.ylabel("Outputs")
-plt.scatter(x1, y1, color="pink", label="Original Data")
-plt.scatter(x2, y2, color="blue", label="Model Prediction")
-plt.legend(loc="best")
-plt.show()
-'''
