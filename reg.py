@@ -10,11 +10,13 @@ import matplotlib.pyplot as plt
 #Desc: Linear regression and polynomial expansion program using csv data being read in
 #using SGD since it's allegedly faster
 
-#hyperparameters are the alpha and epoch
+#HYPERPARAMETERS are the alpha and epoch ---------------------------------------------
 alpha = 0.001 #dr harrison said smaller numbers are better
 max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuff
+#-------------------------------------------------------------------------------------
+
 #num_features = 11 #because there are 11 in this specific dataset
-weights = []
+#weights = []
 #for x in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
 #    weights.append(random()) #ranadomize float between 0 to 1
 #weights = np.array(weights)
@@ -104,3 +106,4 @@ def sgd(dataset, max_epoch, alpha):
     print(weights)
 
 sgd(wine, max_epoch, alpha)
+#end pt 1 -----------------------------------------------------------------------------
