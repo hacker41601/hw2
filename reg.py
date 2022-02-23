@@ -24,16 +24,15 @@ max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuf
 #print(weights)
 MSE = []
 
-#attempt at pandas usage but kept getting errors b/c unable to iterate a row at a time?
 '''
 wine = pd.read_csv('winequality-red.csv')
 wine = pd.concat([pd.Series(1, index = wine.index, name = 'theta0'), wine], axis = 1)
 print(wine.head())
 m = len(wine)
 x = wine.drop(columns = 'quality') #input variables
-#print(x.to_numpy())
+x = x.to_numpy()
 y = wine.iloc[:,12] #output variable
-#print(y.to_numpy())
+y = y.to_numpy()
 '''
 #pt 1--------------------------------------------------------------------------
 wine = np.loadtxt('winequality-red.csv', delimiter = ',', skiprows = 1)
@@ -56,7 +55,7 @@ def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
     while curr_epoch <= max_epoch:
         ex = 0
-        for i in wine:
+        for i in dataset:
             all_data = np.array(dataset[ex])
             inputs = all_data[:-1] #only the features doesnt include the quality rating
             #print(inputs)
