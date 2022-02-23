@@ -55,9 +55,8 @@ def sgd(dataset, max_epoch, alpha):
     while curr_epoch <= max_epoch:
         ex = 0
         for i in wine:
-            entry = np.array(dataset[ex])
-            #print(entry)
-            inputs = entry[:-1] #only the features doesnt include the quality rating
+            all_data = np.array(dataset[ex])
+            inputs = all_data[:-1] #only the features doesnt include the quality rating
             #print(inputs)
             input = np.insert(inputs, 0, 1.0) #x0 is always 1
             #sgd uses randomized weights and handles a vector at a time
@@ -93,7 +92,9 @@ def sgd(dataset, max_epoch, alpha):
             mse = mse - pred
             mse = abs(mse)
             MSE.append(mse)
+            
             ex += 1
+        
         avgSE = sum(MSE)/ len(MSE)
     
         if curr_epoch % 7 == 0:
