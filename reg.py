@@ -39,7 +39,7 @@ wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1
 #y = wine.iloc[:,12] #output variable
 #print(y)
 
-def sgdp(dataset, max_epoch, alpha):
+def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
     
     while curr_epoch <= max_epoch:
@@ -93,5 +93,5 @@ def sgdp(dataset, max_epoch, alpha):
     print("AVG SE: ", avgSE)
     print("WEIGHTS: ", weights)
 
-sgdp(wine, max_epoch, alpha)
+sgd(wine, max_epoch, alpha)
 
