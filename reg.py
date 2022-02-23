@@ -39,8 +39,10 @@ wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1
 
 def sgdp(dataset, max_epoch, alpha):
     curr_epoch = 0
+    
     while curr_epoch <= max_epoch:
         ex = 0
+        
         for i in dataset:
             x = dataset.drop(columns = 'quality') #input variables
             input = x.loc[ex]
