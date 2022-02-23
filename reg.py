@@ -76,17 +76,16 @@ def sgdp(dataset, max_epoch, alpha):
             for y in weights:
                 weights[feat] = temp[feat] - alpha * gradient[feat]
                 feat += 1
+            
+            #print(weights)
             mse = np.dot(np.transpose(weights), input)
-            mse = mse - pred
-            mse = abs(mse)
+            mse = abs(mse - pred)
             MSE.append(mse)
             
             ex += 1
         
         avgSE = sum(MSE)/ len(MSE)
-    
-        if curr_epoch % 7 == 0:
-            print(avgSE)
+        print(avgSE)
         curr_epoch += 1
 
     print(weights)
