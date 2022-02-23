@@ -46,7 +46,7 @@ def sgdp(dataset, max_epoch, alpha):
         for i in dataset:
             x = dataset.drop(columns = 'quality') #input variables
             input = x.loc[ex]
-            #sgd uses randomized weights and handles a vector at a time
+            #sgd uses randomized weights and handles a vector/datapoint at a time
             #print(input)
             #print(np.shape(weights))
             #print(np.shape(input))
