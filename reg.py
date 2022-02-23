@@ -66,6 +66,7 @@ def sgd(dataset, max_epoch, alpha):
             #print(np.shape(input))
             #print(type(input))
             
+            #initializing the random weights
             weights = []
             for j in range(len(wine[0,:])): #+1 is to account for the size being increased since the first input is always 1 which i inserted
                 weights.append(random()) #ranadomize float between 0 to 1
@@ -124,4 +125,3 @@ plt.scatter(x2, y2, color="blue", label="Model Prediction")
 plt.legend(loc="best")
 plt.show()
 '''
-
