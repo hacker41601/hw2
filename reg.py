@@ -25,16 +25,16 @@ max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuf
 MSE = []
 
 #pt 1--------------------------------------------------------------------------
-wine1 = pd.read_csv('winequality-red.csv')
-#print(wine1.head())
-wine1=(wine1-wine1.min())/(wine1.max()-wine1.min())
-wine1 = pd.concat([pd.Series(1, index = wine1.index, name = 'x0'), wine1], axis = 1)
-#print(normalized_wine1)
-#print(wine1)
-#m = len(wine1)
-x = wine1.drop(columns = 'quality') #input variables
+wine = pd.read_csv('winequality-red.csv')
+#print(wine.head())
+wine=(wine-wine.min())/(wine.max()-wine.min())
+wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1)
+#print(normalized_wine)
+#print(wine)
+#m = len(wine)
+#x = wine.drop(columns = 'quality') #input variables
 #print(x)
-y = wine1.iloc[:,12] #output variable
+#y = wine.iloc[:,12] #output variable
 #print(y)
 
 def sgdp(dataset, max_epoch, alpha):
@@ -42,6 +42,7 @@ def sgdp(dataset, max_epoch, alpha):
     while curr_epoch <= max_epoch:
         ex = 0
         for i in dataset:
+            x = dataset.drop(columns = 'quality') #input variables
             input = x.loc[ex]
             #sgd uses randomized weights and handles a vector at a time
             #print(input)
@@ -57,7 +58,7 @@ def sgdp(dataset, max_epoch, alpha):
             hypothesis = np.dot((np.transpose(weights)), input) #scalar
             #print(hypothesis)
             #print(type(hypothesis))
-            y = wine1.iloc[:,12] #output variable
+            y = dataset.iloc[:,12] #output variable
             pred = y.loc[ex]
             #print(pred)
         
@@ -65,8 +66,8 @@ def sgdp(dataset, max_epoch, alpha):
             #print(raw_err)
         
             gradient = raw_err * input #1 x n
+            
             #update weights:
-        
             temp = weights
             feat = 0
             for y in weights:
@@ -87,5 +88,5 @@ def sgdp(dataset, max_epoch, alpha):
 
     print(weights)
 
-sgdp(wine1, max_epoch, alpha)
+sgdp(wine, max_epoch, alpha)
 
