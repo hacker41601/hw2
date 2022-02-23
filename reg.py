@@ -54,7 +54,7 @@ def sgdp(dataset, max_epoch, alpha):
             
             #initializing the random weights
             weights = []
-            for j in range(len(input)): #+1 is to account for the size being increased since the first input is always 1 which i inserted
+            for j in range(len(input)):
                 weights.append(random()) #ranadomize float between 0 to 1
             weights = np.array(weights)
             
