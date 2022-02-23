@@ -87,8 +87,9 @@ def sgdp(dataset, max_epoch, alpha):
         avgSE = sum(MSE)/ len(MSE)
         print(avgSE)
         curr_epoch += 1
-
-    print(weights)
+    
+    print("AVG SE: ", avgSE)
+    print("WEIGHTS: ", weights)
 
 sgdp(wine, max_epoch, alpha)
 
