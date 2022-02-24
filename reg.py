@@ -23,6 +23,7 @@ max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuf
 #print(type(weights))
 #print(weights)
 MSE = []
+dp = []
 
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
@@ -80,17 +81,17 @@ def sgd(dataset, max_epoch, alpha):
                 feat += 1
             
             #print(weights)
-            mse = np.dot(np.transpose(weights), input)
-            mse = abs(mse - pred)
-            MSE.append(mse)
+            dot_prod = np.dot(np.transpose(weights), input)
+            dot_prod = abs(dot_prod - pred)
+            dp.append(dot_prod)
             
             ex += 1
         
-        avgSE = sum(MSE)/ len(MSE)
-        print(avgSE)
+        MSE = sum(dp)/ len(dp)
+        print(MSE)
         curr_epoch += 1
     
-    print("AVG SE: ", avgSE)
+    print("MEAN SQUARED ERROR: ", MSE)
     print("WEIGHTS: ", weights)
 
 sgd(wine, max_epoch, alpha)
