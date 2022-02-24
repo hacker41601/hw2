@@ -49,6 +49,9 @@ def sgd(dataset, max_epoch, alpha):
         for data in dataset:
             x = dataset.drop(columns = 'quality') #input variables only
             input = x.loc[ex]
+            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
+            pred = y.loc[ex] #this is the prediction/output
+            #print(pred)
             #sgd uses randomized weights and handles a vector/datapoint at a time
             #print(input)
             #print(np.shape(weights))
@@ -64,9 +67,6 @@ def sgd(dataset, max_epoch, alpha):
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis)
             #print(type(hypothesis))
-            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
-            pred = y.loc[ex] #this is the prediction/output
-            #print(pred)
         
             raw_err = hypothesis - pred #scalar operation
             #print(raw_err)
