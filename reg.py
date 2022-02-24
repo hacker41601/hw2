@@ -46,7 +46,7 @@ def sgd(dataset, max_epoch, alpha):
     while curr_epoch <= max_epoch:
         ex = 0 #the examples are to iterator through each row at a time
         
-        for i in dataset:
+        for data in dataset:
             x = dataset.drop(columns = 'quality') #input variables only
             input = x.loc[ex]
             #sgd uses randomized weights and handles a vector/datapoint at a time
@@ -57,7 +57,7 @@ def sgd(dataset, max_epoch, alpha):
             
             #initializing the random weights
             weights = []
-            for j in range(len(input)):
+            for w in range(len(input)):
                 weights.append(random()) #ranadomize float between 0 to 1 b/c sigmoid or smth
             weights = np.array(weights) #turn into an array so i can use the dot and transpose functions in numpy
             
@@ -76,7 +76,7 @@ def sgd(dataset, max_epoch, alpha):
             #update weights:
             update = weights
             feat = 0
-            for y in weights:
+            for w in weights:
                 weights[feat] = update[feat] - alpha * gradient[feat]
                 feat += 1
             
@@ -87,6 +87,7 @@ def sgd(dataset, max_epoch, alpha):
             
             ex += 1
         
+        #1/m not 1/2m
         MSE = sum(dp)/ len(dp)
         print(MSE)
         curr_epoch += 1
