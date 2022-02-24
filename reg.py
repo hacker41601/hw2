@@ -22,14 +22,14 @@ max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuf
 #weights = np.array(weights)
 #print(type(weights))
 #print(weights)
-MSE = []
-dp = []
+#MSE = []
+dp = [] #place the array of dot products
 
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
 #print(wine.head())
-wine=(wine-wine.min())/(wine.max()-wine.min())
-wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1)
+wine=(wine-wine.min())/(wine.max()-wine.min()) #normalizing ALL of the data frame using max min method from stack overflow
+wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1) #adding in the bias columns
 #print(normalized_wine)
 #print(wine)
 #m = len(wine)
@@ -44,10 +44,10 @@ def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
     
     while curr_epoch <= max_epoch:
-        ex = 0
+        ex = 0 #the examples are to iterator through each row at a time
         
         for i in dataset:
-            x = dataset.drop(columns = 'quality') #input variables
+            x = dataset.drop(columns = 'quality') #input variables only
             input = x.loc[ex]
             #sgd uses randomized weights and handles a vector/datapoint at a time
             #print(input)
@@ -58,26 +58,26 @@ def sgd(dataset, max_epoch, alpha):
             #initializing the random weights
             weights = []
             for j in range(len(input)):
-                weights.append(random()) #ranadomize float between 0 to 1
-            weights = np.array(weights)
+                weights.append(random()) #ranadomize float between 0 to 1 b/c sigmoid or smth
+            weights = np.array(weights) #turn into an array so i can use the dot and transpose functions in numpy
             
-            hypothesis = np.dot((np.transpose(weights)), input) #scalar
+            hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis)
             #print(type(hypothesis))
-            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable
-            pred = y.loc[ex]
+            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
+            pred = y.loc[ex] #this is the prediction/output
             #print(pred)
         
-            raw_err = hypothesis - pred #scalar
+            raw_err = hypothesis - pred #scalar operation
             #print(raw_err)
         
-            gradient = raw_err * input #1 x n
+            gradient = raw_err * input #multiply raw error by all the inputs/x_i
             
             #update weights:
-            temp = weights
+            update = weights
             feat = 0
             for y in weights:
-                weights[feat] = temp[feat] - alpha * gradient[feat]
+                weights[feat] = update[feat] - alpha * gradient[feat]
                 feat += 1
             
             #print(weights)
