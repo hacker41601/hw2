@@ -39,6 +39,8 @@ wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1
 #print(x)
 #y = wine.iloc[:,12] #output variable
 #print(y)
+#weight = np.random.uniform(0,1,12)
+#print(weight)
 
 def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
@@ -59,11 +61,7 @@ def sgd(dataset, max_epoch, alpha):
             #print(type(input))
             
             #initializing the random weights
-            weights = []
-            for w in range(len(input)):
-                weights.append(random()) #ranadomize float between 0 to 1 b/c sigmoid or smth
-            weights = np.array(weights) #turn into an array so i can use the dot and transpose functions in numpy
-            
+            weights = np.random.uniform(0,1,len(input))
             #1x12 * 12x1
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis)
