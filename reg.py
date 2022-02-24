@@ -54,8 +54,8 @@ def sgd(dataset, max_epoch, alpha):
             #print(pred)
             #sgd uses randomized weights and handles a vector/datapoint at a time
             #print(input)
-            #print(np.shape(weights))
-            #print(np.shape(input))
+            #print(np.shape(weights)) #12x1
+            #print(np.shape(input)) #12x1
             #print(type(input))
             
             #initializing the random weights
@@ -64,6 +64,7 @@ def sgd(dataset, max_epoch, alpha):
                 weights.append(random()) #ranadomize float between 0 to 1 b/c sigmoid or smth
             weights = np.array(weights) #turn into an array so i can use the dot and transpose functions in numpy
             
+            #1x12 * 12x1
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis)
             #print(type(hypothesis))
