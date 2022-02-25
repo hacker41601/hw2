@@ -100,4 +100,5 @@ sgd(wine, max_epoch, alpha)
 
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
+def basis_exp():
 
