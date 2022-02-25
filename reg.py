@@ -115,8 +115,23 @@ synth2.columns = ['x0', 'input', 'quality']
 #print(synth1)
 #print(synth2)
 
-#def basis_exp(): the orders or 2, 3, and 5
-
-
+def basis_exp(dataset, order): #the orders or 2, 3, and 5
+    ex = 0
+    exp_ind = 0
+    for x in range(order - 1):
+        exp_ind+=1
+        dataset = np.insert(dataset, exp_ind, 0, axis = 1)
+        #use pandas concat instead and see if it works
+    for m in data:
+        ind = 0
+        og = dataset[ex][ind]
+        for x in range(order - 1):
+            ind+=1
+            cast = float(og) ** (ind + 1)
+            dataset[ex][ind] = cast
+        ex += 1
+        
 sgd(synth1, max_epoch, alpha)
 sgd(synth2, max_epoch, alpha)
+
+#basis_exp(synth1, 2)
