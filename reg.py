@@ -28,7 +28,7 @@ dp = [] #place the array of dot products
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
 #print(wine.head())
-wine=(wine-wine.min())/(wine.max()-wine.min()) #normalizing ALL of the data frame using max min method from stack overflow
+wine = (wine - wine.min())/(wine.max() - wine.min()) #normalizing ALL of the data frame using max min method from stack overflow
 wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1) #adding in the bias columns
 #print(normalized_wine)
 #print(wine)
@@ -93,12 +93,30 @@ def sgd(dataset, max_epoch, alpha):
         curr_epoch += 1
     
     print("MEAN SQUARED ERROR: ", MSE)
-    print(" ")
     print("WEIGHTS: ", weights)
+    print(" ")
 
 sgd(wine, max_epoch, alpha)
 
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
-def basis_exp():
+synth1 = pd.read_csv('synthetic-1.csv', header = None)
+synth2 = pd.read_csv('synthetic-2.csv', header = None)
 
+synth1 = (synth1 - synth1.min())/(synth1.max() - synth1.min())
+synth2 = (synth2 - synth2.min())/(synth2.max() - synth2.min())
+
+synth1 = pd.concat([pd.Series(1, index = synth1.index, name = 'x0'), synth1], axis = 1)
+synth2 = pd.concat([pd.Series(1, index = synth2.index, name = 'x0'), synth2], axis = 1)
+
+synth1.columns = ['x0', 'input', 'quality']
+synth2.columns = ['x0', 'input', 'quality']
+
+#print(synth1)
+#print(synth2)
+
+#def basis_exp(): the orders or 2, 3, and 5
+
+
+sgd(synth1, max_epoch, alpha)
+sgd(synth2, max_epoch, alpha)
