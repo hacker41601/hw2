@@ -86,13 +86,18 @@ def sgd(dataset, max_epoch, alpha):
             
             ex += 1
         
+        m = len(dp)
         #1/m not 1/2m
-        MSE = sum(dp)/ len(dp)
-        print(MSE)
+        MSE = sum(dp)/ m
+        #print(MSE)
         curr_epoch += 1
     
     print("MEAN SQUARED ERROR: ", MSE)
+    print(" ")
     print("WEIGHTS: ", weights)
 
 sgd(wine, max_epoch, alpha)
+
+#pt 2 --------------------------------------------------------------------------------------------------------
+#this part is using polynomial regression with basis expansion
 
