@@ -142,18 +142,18 @@ sgd(synth2, max_epoch, alpha)
 #print(synth1.iloc[0][1])
 
 #lines 139 - 147 work
-for m in synth1:
-    ex = 0
-    ind = 1
-    og = synth1.iloc[ex][ind + 1]
+#for m in synth1:
+#    ex = 0
+#    ind = 1
+#    og = synth1.iloc[ex][ind + 1]
     #print(og)
 
 #inserts into 2nd column, named 1, filled with 0s
 #synth1.insert(2, 1, 0)
 basis_exp(synth1, 5)
-og = synth1.iloc[0,1]
-og = og ** 2
-print(og)
+#og = synth1.iloc[0,1]
+#og = og ** 2
+#print(og)
 #synth1.iloc[0,2] = og
 #print(synth1.iloc[0,2])
 #for some reason it all goes to zeroes at row 7
