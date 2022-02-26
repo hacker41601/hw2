@@ -117,6 +117,7 @@ synth2.columns = ['x0', 'input', 'quality']
 
 def basis_exp(dataset, order): #the orders or 2, 3, and 5
 #expand dataset to their respective orders
+#use exp_ind = 1 bc i already inserted a thing of 1's into my dataframe 
     ex = 0
     exp_ind = 1
     newcol = 1
@@ -131,7 +132,7 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         og = dataset.iloc[ex, ind]
         for x in range(order - 1):
             ind+=1
-            ordered = og ** (ind + 1)
+            ordered = og ** (ind)
             dataset.iloc[ex,ind] = ordered
         ex += 1
         
@@ -150,9 +151,9 @@ for m in synth1:
 #inserts into 2nd column, named 1, filled with 0s
 #synth1.insert(2, 1, 0)
 basis_exp(synth1, 5)
-#og = synth1.iloc[0,1]
-#og = og ** 2
-#print(og)
+og = synth1.iloc[0,1]
+og = og ** 2
+print(og)
 #synth1.iloc[0,2] = og
 #print(synth1.iloc[0,2])
 #for some reason it all goes to zeroes at row 7
