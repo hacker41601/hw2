@@ -117,18 +117,19 @@ synth2.columns = ['x0', 'input', 'quality']
 
 def basis_exp(dataset, order): #the orders or 2, 3, and 5
     ex = 0
-    exp_ind = 0
+    exp_ind = 1
     for x in range(order - 1):
         exp_ind+=1
-        dataset[2 + exp_ind] = 0
+        #dataset[2 + exp_ind] = 0
+        dataset.insert(exp_ind, 1, 0)
         #use pandas concat instead and see if it works
     for m in dataset:
-        ind = 0
-        og = dataset.iloc[ex][ind+1]
+        ind = 1
+        og = dataset.iloc[ex][ind]
         for x in range(order - 1):
             ind+=1
             cast = float(og) ** (ind + 1)
-            dataset[ex][ind] = cast
+            dataset.iloc[ex][ind] = cast
         ex += 1
         
 sgd(synth1, max_epoch, alpha)
