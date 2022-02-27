@@ -126,6 +126,7 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         #dataset[2 + exp_ind] = 0
         newcol += 1
         dataset.insert(exp_ind, newcol, 0)
+        #print(dataset) expanding in accordance to order
         #use pandas concat instead and see if it works
     for m in dataset:
         ind = 1
