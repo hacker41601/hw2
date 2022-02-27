@@ -157,5 +157,5 @@ basis_exp(synth1, 5)
 #print(synth1.iloc[0,2])
 #for some reason it all goes to zeroes at row 7
 print(synth1)
-#sgd(synth1, max_epoch, alpha)
+#sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 
