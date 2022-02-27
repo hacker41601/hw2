@@ -150,6 +150,7 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
 #inserts into 2nd column, named 1, filled with 0s
 #synth1.insert(2, 1, 0)
 basis_exp(synth1, 5)
+basis_exp(synth2, 5)
 #og = synth1.iloc[0,1]
 #og = og ** 2
 #print(og)
@@ -157,5 +158,6 @@ basis_exp(synth1, 5)
 #print(synth1.iloc[0,2])
 #for some reason it all goes to zeroes at row 7
 print(synth1)
+print(synth2)
 #sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 
