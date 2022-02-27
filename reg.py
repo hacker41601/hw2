@@ -140,9 +140,7 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         
 sgd(synth1, max_epoch, alpha)
 sgd(synth2, max_epoch, alpha)
-
 #print(synth1.iloc[0][1])
-
 #lines 139 - 147 work
 #for m in synth1:
 #    ex = 0
