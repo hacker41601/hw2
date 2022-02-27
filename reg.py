@@ -128,10 +128,9 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         dataset.insert(exp_ind, newcol, 0)
         #print(dataset) expanding in accordance to order
         #use pandas concat instead and see if it works
-    for m in dataset:
+    for m in range(len(dataset)):
         ind = 1
         og = dataset.iloc[ex, ind]
-        #print(og) only goes to 7 rows? why!!!
         for x in range(order - 1):
             ind+=1
             ordered = og ** (ind)
