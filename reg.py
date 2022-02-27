@@ -130,6 +130,7 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
     for m in dataset:
         ind = 1
         og = dataset.iloc[ex, ind]
+        #print(og) only goes to 7 rows? why!!!
         for x in range(order - 1):
             ind+=1
             ordered = og ** (ind)
