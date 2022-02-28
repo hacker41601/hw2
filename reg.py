@@ -160,4 +160,5 @@ basis_exp(synth2, 5)
 print(synth1)
 print(synth2)
 #sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
+#sgd(synth2, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 
