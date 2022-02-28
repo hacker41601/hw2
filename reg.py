@@ -162,7 +162,8 @@ print(synth1)
 print(synth2)
 #sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 #sgd(synth2, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
-
+#benchmarks for part 1: 35, 10, 10
+#becnhmarks for part 2: .5, .5, .5
 synth1.to_csv('newSynth1.csv', index = False)
 synth1 = pd.read_csv('newSynth1.csv')
 print(synth1)
