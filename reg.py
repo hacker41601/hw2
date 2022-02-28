@@ -63,6 +63,7 @@ def sgd(dataset, max_epoch, alpha):
             #initializing the random weights
             weights = np.random.uniform(0,1,len(input))
             #1x12 * 12x1
+            #print(np.shape(weights))
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis)
             #print(type(hypothesis))
@@ -71,7 +72,7 @@ def sgd(dataset, max_epoch, alpha):
             #print(raw_err)
         
             gradient = raw_err * input #multiply raw error by all the inputs/x_i
-            
+            #print("GRADIENT: ", gradient)
             #update weights:
             update = weights
             feat = 0
@@ -162,56 +163,13 @@ print(synth2)
 #sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 #sgd(synth2, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 
-def sgd_synth(dataset, max_epoch, alpha):
-    curr_epoch = 0
-    
-    while curr_epoch <= max_epoch:
-        ex = 0 #the examples are to iterator through each row at a time
-        
-        for data in dataset:
-            x = dataset.drop(columns = 'quality') #input variables only
-            input = x.loc[ex]
-            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
-            pred = y.loc[ex] #this is the prediction/output
-            #print(pred)
-            #sgd uses randomized weights and handles a vector/datapoint at a time
-            #print(input)
-            #print(np.shape(weights)) #12x1
-            #print(np.shape(input)) #12x1
-            #print(type(input))
-            
-            #initializing the random weights
-            weights = np.random.uniform(0,1,len(input))
-            #1x12 * 12x1
-            hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
-            #print(hypothesis)
-            #print(type(hypothesis))
-        
-            raw_err = hypothesis - pred #scalar operation
-            #print(raw_err)
-        
-            gradient = raw_err * input #multiply raw error by all the inputs/x_i
-            
-            #update weights:
-            update = weights
-            feat = 0
-            for w in weights:
-                weights[feat] = update[feat] - alpha * gradient[feat]
-                feat += 1
-            
-            #print(weights)
-            dot_prod = np.dot(np.transpose(weights), input)
-            dot_prod = abs(dot_prod - pred)
-            dp.append(dot_prod)
-            
-            ex += 1
-        
-        m = len(dp)
-        #1/m not 1/2m
-        MSE = sum(dp)/ m
-        #print(MSE)
-        curr_epoch += 1
-    
-    print("MEAN SQUARED ERROR: ", MSE)
-    print("WEIGHTS: ", weights)
-    print(" ")
+synth1.to_csv('newSynth1.csv', index = False)
+synth1 = pd.read_csv('newSynth1.csv')
+print(synth1)
+sgd(synth1, max_epoch, alpha)
+synth2.to_csv('newSynth2.csv', index = False)
+synth2 = pd.read_csv('newSynth2.csv')
+print(synth2)
+sgd(synth2, max_epoch, alpha)
+#weights = np.random.uniform(0,1,7)
+#print(weights[0])
