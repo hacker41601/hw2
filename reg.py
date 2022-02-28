@@ -97,6 +97,7 @@ def sgd(dataset, max_epoch, alpha):
     print("WEIGHTS: ", weights)
     print(" ")
 
+print("Benchmark for Wine: 1.5 MSE: ")
 sgd(wine, max_epoch, alpha)
 
 #pt 2 --------------------------------------------------------------------------------------------------------
@@ -158,19 +159,21 @@ basis_exp(synth2, 5)
 #synth1.iloc[0,2] = og
 #print(synth1.iloc[0,2])
 #for some reason it all goes to zeroes at row 7
-print(synth1)
-print(synth2)
+#print(synth1)
+#print(synth2)
 #sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 #sgd(synth2, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 #benchmarks for part 1: 35, 10, 10
 #becnhmarks for part 2: .5, .5, .5
 synth1.to_csv('newSynth1.csv', index = False)
 synth1 = pd.read_csv('newSynth1.csv')
-print(synth1)
-sgd(synth1, max_epoch, alpha)
+#print(synth1)
 synth2.to_csv('newSynth2.csv', index = False)
 synth2 = pd.read_csv('newSynth2.csv')
-print(synth2)
+#print(synth2)
+print("Benchmark for Synth1: 35, 10, 10 MSE: ")
+sgd(synth1, max_epoch, alpha)
+print("Benchmark for Synth2: .5, .5, .5 MSE: ")
 sgd(synth2, max_epoch, alpha)
 #weights = np.random.uniform(0,1,7)
 #print(weights[0])
