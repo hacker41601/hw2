@@ -192,8 +192,8 @@ sgd(synth23, max_epoch, alpha)
 #print(synth13)
 #print(synth23)
 #print(synth1)
-#benchmarks for part 1: 35, 10, 10
-#becnhmarks for part 2: .5, .5, .5
+#benchmarks for part 1: 35, 10, 10 got this down
+#becnhmarks for part 2: .5, .5, .5 do not got this down
 synth15.to_csv('newSynth1-5.csv', index = False)
 synth15 = pd.read_csv('newSynth1-5.csv')
 synth25.to_csv('newSynth2-5.csv', index = False)
