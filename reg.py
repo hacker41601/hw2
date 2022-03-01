@@ -162,8 +162,8 @@ basis_exp(synth23, 3)
 basis_exp(synth15, 5)
 basis_exp(synth25, 5)
 
-print(synth15)
-print(synth25)
+#print(synth15)
+#print(synth25)
 
 synth12.to_csv('newSynth1-2.csv', index = False)
 synth12 = pd.read_csv('newSynth1-2.csv')
@@ -206,6 +206,3 @@ sgd(synth15, max_epoch, alpha)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
 sgd(synth25, max_epoch, alpha)
-#weights = np.random.uniform(0,1,7)
-#print(weights[0])
-
