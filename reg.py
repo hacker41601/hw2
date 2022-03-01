@@ -155,6 +155,16 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
 
 basis_exp(synth12, 2)
 basis_exp(synth22, 2)
+
+basis_exp(synth13, 3)
+basis_exp(synth23, 3)
+
+basis_exp(synth15, 5)
+basis_exp(synth25, 5)
+
+print(synth15)
+print(synth25)
+
 synth12.to_csv('newSynth1-2.csv', index = False)
 synth12 = pd.read_csv('newSynth1-2.csv')
 synth22.to_csv('newSynth2-2.csv', index = False)
@@ -162,15 +172,12 @@ synth22 = pd.read_csv('newSynth2-2.csv')
     
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
-sgd(synth12, max_epoch, .001)
+sgd(synth12, max_epoch, alpha)
 print("----------------------------Synth2-2:---------------------------- \n")
 #.5 and under
-sgd(synth22, max_epoch, .001)
+sgd(synth22, max_epoch, alpha)
 #print(synth12)
 #print(synth22)
-
-basis_exp(synth13, 3)
-basis_exp(synth23, 3)
 synth13.to_csv('newSynth1-3.csv', index = False)
 synth13 = pd.read_csv('newSynth1-3.csv')
 synth23.to_csv('newSynth2-3.csv', index = False)
@@ -178,15 +185,12 @@ synth23 = pd.read_csv('newSynth2-3.csv')
 
 print("----------------------------Synth1-3:---------------------------- \n")
 #under 10
-sgd(synth13, max_epoch, .001)
+sgd(synth13, max_epoch, alpha)
 print("----------------------------Synth2-3:---------------------------- \n")
 #.5 and under
-sgd(synth23, max_epoch, .001)
+sgd(synth23, max_epoch, alpha)
 #print(synth13)
 #print(synth23)
-        
-basis_exp(synth15, 5)
-basis_exp(synth25, 5)
 #print(synth1)
 #benchmarks for part 1: 35, 10, 10
 #becnhmarks for part 2: .5, .5, .5
@@ -198,12 +202,10 @@ synth25 = pd.read_csv('newSynth2-5.csv')
 
 print("----------------------------Synth1-5:---------------------------- \n")
 #under 10
-sgd(synth15, max_epoch, .001)
+sgd(synth15, max_epoch, alpha)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
-sgd(synth25, max_epoch, .001)
+sgd(synth25, max_epoch, alpha)
 #weights = np.random.uniform(0,1,7)
 #print(weights[0])
-#print(synth15)
-#print(synth25)
 
