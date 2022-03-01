@@ -155,6 +155,7 @@ synth25.to_csv('newSynth2-5.csv', index = False)
 synth25 = pd.read_csv('newSynth2-5.csv')
 
 print(synth12)
+print(synth22)
     
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
