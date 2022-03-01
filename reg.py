@@ -97,16 +97,13 @@ def sgd(dataset, max_epoch, alpha):
     print("WEIGHTS: ", weights)
     print(" ")
 
-print("Benchmark for Wine: 1.5 MSE: ")
+print("----------------------------Benchmark for Wine: 1.5 MSE:---------------------------- \n")
 sgd(wine, max_epoch, alpha)
 
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
 synth1 = pd.read_csv('synthetic-1.csv', header = None)
 synth2 = pd.read_csv('synthetic-2.csv', header = None)
-
-synth1 = (synth1 - synth1.min())/(synth1.max() - synth1.min())
-synth2 = (synth2 - synth2.min())/(synth2.max() - synth2.min())
 
 synth1 = pd.concat([pd.Series(1, index = synth1.index, name = 'x0'), synth1], axis = 1)
 synth2 = pd.concat([pd.Series(1, index = synth2.index, name = 'x0'), synth2], axis = 1)
@@ -128,52 +125,34 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         #dataset[2 + exp_ind] = 0
         newcol += 1
         dataset.insert(exp_ind, newcol, 0)
-        #print(dataset) expanding in accordance to order
+        #print(dataset)
+        #expanding in accordance to order
         #use pandas concat instead and see if it works
     for m in range(len(dataset)):
         ind = 1
-        og = dataset.iloc[ex, ind]
+        og = dataset.iloc[ex, ind] #first input piece of data
+        #print(og)
         for x in range(order - 1):
             ind+=1
             ordered = og ** (ind)
             dataset.iloc[ex,ind] = ordered
         ex += 1
         
-#sgd(synth1, max_epoch, alpha)
-#sgd(synth2, max_epoch, alpha)
-#print(synth1.iloc[0][1])
-#lines 139 - 147 work
-#for m in synth1:
-#    ex = 0
-#    ind = 1
-#    og = synth1.iloc[ex][ind + 1]
-    #print(og)
-
-#inserts into 2nd column, named 1, filled with 0s
-#synth1.insert(2, 1, 0)
 basis_exp(synth1, 5)
 basis_exp(synth2, 5)
-#og = synth1.iloc[0,1]
-#og = og ** 2
-#print(og)
-#synth1.iloc[0,2] = og
-#print(synth1.iloc[0,2])
-#for some reason it all goes to zeroes at row 7
 #print(synth1)
-#print(synth2)
-#sgd(synth1, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
-#sgd(synth2, max_epoch, alpha) issue with line 79 in update weights feature for some reason after expanding the dataset
 #benchmarks for part 1: 35, 10, 10
 #becnhmarks for part 2: .5, .5, .5
 synth1.to_csv('newSynth1.csv', index = False)
 synth1 = pd.read_csv('newSynth1.csv')
-#print(synth1)
 synth2.to_csv('newSynth2.csv', index = False)
 synth2 = pd.read_csv('newSynth2.csv')
-#print(synth2)
-print("Benchmark for Synth1: 35, 10, 10 MSE: ")
-sgd(synth1, max_epoch, alpha)
-print("Benchmark for Synth2: .5, .5, .5 MSE: ")
-sgd(synth2, max_epoch, alpha)
+    
+print("----------------------------Benchmark for Synth1: 35, 10, 10 MSE:---------------------------- \n")
+sgd(synth1, max_epoch, .001)
+print("----------------------------Benchmark for Synth2: .5, .5, .5 MSE:---------------------------- \n")
+sgd(synth2, max_epoch, .001)
 #weights = np.random.uniform(0,1,7)
 #print(weights[0])
+
+
