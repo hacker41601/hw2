@@ -99,9 +99,6 @@ synth22.columns = ['x0', 'input', 'quality']
 synth23.columns = ['x0', 'input', 'quality']
 synth25.columns = ['x0', 'input', 'quality']
 
-#print(synth1)
-#print(synth2)
-
 def basis_exp(dataset, order): #the orders or 2, 3, and 5
 #expand dataset to their respective orders
 #use exp_ind = 1 bc i already inserted a thing of 1's into my dataframe 
