@@ -65,7 +65,7 @@ def sgd(dataset, max_epoch, alpha):
             #1x12 * 12x1
             #print(np.shape(weights))
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
-            #print(hypothesis)
+            #print(hypothesis) maybe put hypothesis on y axis and use that
             #print(type(hypothesis))
         
             raw_err = hypothesis - pred #scalar operation
@@ -102,14 +102,29 @@ sgd(wine, max_epoch, alpha)
 
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
-synth1 = pd.read_csv('synthetic-1.csv', header = None)
-synth2 = pd.read_csv('synthetic-2.csv', header = None)
+synth12 = pd.read_csv('synthetic-1.csv', header = None)
+synth13 = pd.read_csv('synthetic-1.csv', header = None)
+synth15 = pd.read_csv('synthetic-1.csv', header = None)
 
-synth1 = pd.concat([pd.Series(1, index = synth1.index, name = 'x0'), synth1], axis = 1)
-synth2 = pd.concat([pd.Series(1, index = synth2.index, name = 'x0'), synth2], axis = 1)
+synth22 = pd.read_csv('synthetic-2.csv', header = None)
+synth23 = pd.read_csv('synthetic-2.csv', header = None)
+synth25 = pd.read_csv('synthetic-2.csv', header = None)
 
-synth1.columns = ['x0', 'input', 'quality']
-synth2.columns = ['x0', 'input', 'quality']
+synth12 = pd.concat([pd.Series(1, index = synth12.index, name = 'x0'), synth12], axis = 1)
+synth13 = pd.concat([pd.Series(1, index = synth13.index, name = 'x0'), synth13], axis = 1)
+synth15 = pd.concat([pd.Series(1, index = synth15.index, name = 'x0'), synth15], axis = 1)
+
+synth22 = pd.concat([pd.Series(1, index = synth22.index, name = 'x0'), synth22], axis = 1)
+synth23 = pd.concat([pd.Series(1, index = synth23.index, name = 'x0'), synth23], axis = 1)
+synth25 = pd.concat([pd.Series(1, index = synth25.index, name = 'x0'), synth25], axis = 1)
+
+synth12.columns = ['x0', 'input', 'quality']
+synth13.columns = ['x0', 'input', 'quality']
+synth15.columns = ['x0', 'input', 'quality']
+
+synth22.columns = ['x0', 'input', 'quality']
+synth23.columns = ['x0', 'input', 'quality']
+synth25.columns = ['x0', 'input', 'quality']
 
 #print(synth1)
 #print(synth2)
@@ -138,54 +153,57 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
             dataset.iloc[ex,ind] = ordered
         ex += 1
 
-basis_exp(synth1, 2)
-basis_exp(synth2, 2)
-synth1.to_csv('newSynth1-2.csv', index = False)
-synth1 = pd.read_csv('newSynth1-2.csv')
-synth2.to_csv('newSynth2-2.csv', index = False)
-synth2 = pd.read_csv('newSynth2-2.csv')
+basis_exp(synth12, 2)
+basis_exp(synth22, 2)
+synth12.to_csv('newSynth1-2.csv', index = False)
+synth12 = pd.read_csv('newSynth1-2.csv')
+synth22.to_csv('newSynth2-2.csv', index = False)
+synth22 = pd.read_csv('newSynth2-2.csv')
     
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
-sgd(synth1, max_epoch, .001)
+sgd(synth12, max_epoch, .001)
 print("----------------------------Synth2-2:---------------------------- \n")
 #.5 and under
-sgd(synth2, max_epoch, .001)
+sgd(synth22, max_epoch, .001)
+#print(synth12)
+#print(synth22)
 
-basis_exp(synth1, 3)
-basis_exp(synth2, 3)
-synth1.to_csv('newSynth1-3.csv', index = False)
-synth1 = pd.read_csv('newSynth1-3.csv')
-synth2.to_csv('newSynth2-3.csv', index = False)
-synth2 = pd.read_csv('newSynth2-3.csv')
-
+basis_exp(synth13, 3)
+basis_exp(synth23, 3)
+synth13.to_csv('newSynth1-3.csv', index = False)
+synth13 = pd.read_csv('newSynth1-3.csv')
+synth23.to_csv('newSynth2-3.csv', index = False)
+synth23 = pd.read_csv('newSynth2-3.csv')
 
 print("----------------------------Synth1-3:---------------------------- \n")
 #under 10
-sgd(synth1, max_epoch, .001)
+sgd(synth13, max_epoch, .001)
 print("----------------------------Synth2-3:---------------------------- \n")
 #.5 and under
-sgd(synth2, max_epoch, .001)
+sgd(synth23, max_epoch, .001)
+#print(synth13)
+#print(synth23)
         
-basis_exp(synth1, 5)
-basis_exp(synth2, 5)
+basis_exp(synth15, 5)
+basis_exp(synth25, 5)
 #print(synth1)
 #benchmarks for part 1: 35, 10, 10
 #becnhmarks for part 2: .5, .5, .5
-synth1.to_csv('newSynth1-5.csv', index = False)
-synth1 = pd.read_csv('newSynth1-5.csv')
-synth2.to_csv('newSynth2-5.csv', index = False)
-synth2 = pd.read_csv('newSynth2-5.csv')
+synth15.to_csv('newSynth1-5.csv', index = False)
+synth15 = pd.read_csv('newSynth1-5.csv')
+synth25.to_csv('newSynth2-5.csv', index = False)
+synth25 = pd.read_csv('newSynth2-5.csv')
 
 
 print("----------------------------Synth1-5:---------------------------- \n")
 #under 10
-sgd(synth1, max_epoch, .001)
+sgd(synth15, max_epoch, .001)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
-sgd(synth2, max_epoch, .001)
+sgd(synth25, max_epoch, .001)
 #weights = np.random.uniform(0,1,7)
 #print(weights[0])
-
-
+#print(synth15)
+#print(synth25)
 
