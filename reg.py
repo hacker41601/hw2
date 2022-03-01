@@ -67,7 +67,6 @@ def sgd(dataset, max_epoch, alpha):
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis) maybe put hypothesis on y axis and use that
             #print(type(hypothesis))
-        
             raw_err = hypothesis - pred #scalar operation
             #print(raw_err)
         
@@ -86,7 +85,7 @@ def sgd(dataset, max_epoch, alpha):
             dp.append(dot_prod)
             
             ex += 1
-        
+            
         m = len(dp)
         #1/m not 1/2m
         MSE = sum(dp)/ m
