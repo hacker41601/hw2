@@ -67,6 +67,7 @@ def sgd(dataset, max_epoch, alpha):
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             #print(hypothesis) maybe put hypothesis on y axis and use that
             #print(type(hypothesis))
+            #dataset.insert(exp_ind, newcol, 0)
             raw_err = hypothesis - pred #scalar operation
             #print(raw_err)
         
