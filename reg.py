@@ -97,7 +97,7 @@ def sgd(dataset, max_epoch, alpha):
     print("WEIGHTS: ", weights)
     print(" ")
 
-print("----------------------------Benchmark for Wine: 1.5 MSE:---------------------------- \n")
+print("----------------------------~WINE~:---------------------------- \n")
 sgd(wine, max_epoch, alpha)
 
 #pt 2 --------------------------------------------------------------------------------------------------------
@@ -137,22 +137,55 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
             ordered = og ** (ind)
             dataset.iloc[ex,ind] = ordered
         ex += 1
+
+basis_exp(synth1, 2)
+basis_exp(synth2, 2)
+synth1.to_csv('newSynth1-2.csv', index = False)
+synth1 = pd.read_csv('newSynth1-2.csv')
+synth2.to_csv('newSynth2-2.csv', index = False)
+synth2 = pd.read_csv('newSynth2-2.csv')
+    
+print("----------------------------Synth1-2:---------------------------- \n")
+#under 35
+sgd(synth1, max_epoch, .001)
+print("----------------------------Synth2-2:---------------------------- \n")
+#.5 and under
+sgd(synth2, max_epoch, .001)
+
+basis_exp(synth1, 3)
+basis_exp(synth2, 3)
+synth1.to_csv('newSynth1-3.csv', index = False)
+synth1 = pd.read_csv('newSynth1-3.csv')
+synth2.to_csv('newSynth2-3.csv', index = False)
+synth2 = pd.read_csv('newSynth2-3.csv')
+
+
+print("----------------------------Synth1-3:---------------------------- \n")
+#under 10
+sgd(synth1, max_epoch, .001)
+print("----------------------------Synth2-3:---------------------------- \n")
+#.5 and under
+sgd(synth2, max_epoch, .001)
         
 basis_exp(synth1, 5)
 basis_exp(synth2, 5)
 #print(synth1)
 #benchmarks for part 1: 35, 10, 10
 #becnhmarks for part 2: .5, .5, .5
-synth1.to_csv('newSynth1.csv', index = False)
-synth1 = pd.read_csv('newSynth1.csv')
-synth2.to_csv('newSynth2.csv', index = False)
-synth2 = pd.read_csv('newSynth2.csv')
-    
-print("----------------------------Benchmark for Synth1: 35, 10, 10 MSE:---------------------------- \n")
+synth1.to_csv('newSynth1-5.csv', index = False)
+synth1 = pd.read_csv('newSynth1-5.csv')
+synth2.to_csv('newSynth2-5.csv', index = False)
+synth2 = pd.read_csv('newSynth2-5.csv')
+
+
+print("----------------------------Synth1-5:---------------------------- \n")
+#under 10
 sgd(synth1, max_epoch, .001)
-print("----------------------------Benchmark for Synth2: .5, .5, .5 MSE:---------------------------- \n")
+print("----------------------------Synth2-5:---------------------------- \n")
+#.5 and under
 sgd(synth2, max_epoch, .001)
 #weights = np.random.uniform(0,1,7)
 #print(weights[0])
+
 
 
