@@ -1,47 +1,21 @@
-import numpy as np #to use the vector functions
-import pandas as pd #to read the csv
-import csv
-import math
-from random import random
-import matplotlib.pyplot as plt
-
 #Author: Monynich Kiem
 #Date: Feb. 21. 2022
 #Desc: Linear regression and polynomial expansion program using csv data being read in
+import numpy as np #to use the vector functions
+import pandas as pd #to read the csv
+from random import random
+import matplotlib.pyplot as plt
 #using SGD since it's allegedly faster
-
-#HYPERPARAMETERS are the alpha and epoch ---------------------------------------------
+#HYPERPARAMETERS are the alpha and epoch-------------------------------------------
 alpha = 0.001 #dr harrison said smaller numbers are better
 max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuff
-#-------------------------------------------------------------------------------------
-
-#num_features = 11 #because there are 11 in this specific dataset
-#weights = []
-#for x in range(num_features + 1): #+1 is to account for the size being increased since the first input is always 1
-#    weights.append(random()) #ranadomize float between 0 to 1
-#weights = np.array(weights)
-#print(type(weights))
-#print(weights)
-#MSE = []
+#-----------------------------------------------------------------------------------
 dp = [] #place the array of dot products
-
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
 #print(wine.head())
 wine = (wine - wine.min())/(wine.max() - wine.min()) #normalizing ALL of the data frame using max min method from stack overflow
 wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1) #adding in the bias columns
-#print(normalized_wine)
-#print(wine)
-#m = len(wine)
-#num_cols = len(wine.columns)
-#print(len(wine.columns))
-#x = wine.drop(columns = 'quality') #input variables
-#print(x)
-#y = wine.iloc[:,12] #output variable
-#print(y)
-#weight = np.random.uniform(0,1,12)
-#print(weight)
-
 def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
     
@@ -164,7 +138,7 @@ basis_exp(synth15, 5)
 basis_exp(synth25, 5)
 
 #print(type(synth15))
-#print(synth25)
+#print(synth15)
 
 synth12.to_csv('newSynth1-2.csv', index = False)
 synth12 = pd.read_csv('newSynth1-2.csv')
