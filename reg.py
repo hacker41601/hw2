@@ -8,46 +8,39 @@ import matplotlib.pyplot as plt
 #using SGD since it's allegedly faster
 #HYPERPARAMETERS are the alpha and epoch-------------------------------------------
 alpha = 0.001 #dr harrison said smaller numbers are better
-max_epoch = 42 #epochs are just the number of iterations, chose 42 b/c nerd stuff
+max_epoch = 100
 #-----------------------------------------------------------------------------------
-dp = [] #place the array of dot products
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
 #print(wine.head())
 wine = (wine - wine.min())/(wine.max() - wine.min()) #normalizing ALL of the data frame using max min method from stack overflow
-wine = pd.concat([pd.Series(1, index = wine.index, name = 'x0'), wine], axis = 1) #adding in the bias columns
+wine.insert(0, 'x0', 1) #adding in the bias columns
+
 def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
     
     while curr_epoch <= max_epoch:
         ex = 0 #the examples are to iterator through each row at a time
-        
+        x = dataset.drop(columns = 'quality') #input variables only
+        y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
         for data in dataset:
-            x = dataset.drop(columns = 'quality') #input variables only
             input = x.loc[ex]
-            y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
-            pred = y.loc[ex] #this is the prediction/output
-            #print(pred)
-            #sgd uses randomized weights and handles a vector/datapoint at a time
-            #print(input)
-            #print(np.shape(weights)) #12x1
-            #print(np.shape(input)) #12x1
-            #print(type(input))
-            
-            #initializing the random weights
             weights = np.random.uniform(0,1,len(input))
+        for data in dataset:
+            input = x.loc[ex]
+            pred = y.loc[ex]
+            #sgd uses randomized weights and handles a vector/datapoint at a time
+            #initializing the random weights
+            #weights = np.random.uniform(0,1,len(input))
             #1x12 * 12x1
+            #weights = np.random.uniform(0,1,len(input))
             #print(np.shape(weights))
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
-            #print(hypothesis) maybe put hypothesis on y axis and use that
-            #print(type(hypothesis))
-            #dataset.insert(exp_ind, newcol, 0)
             raw_err = hypothesis - pred #scalar operation
-            #print(raw_err)
         
             gradient = raw_err * input #multiply raw error by all the inputs/x_i
-            #print("GRADIENT: ", gradient)
             #update weights:
+            gradient = gradient.to_numpy() #fixed key error!!
             update = weights
             feat = 0
             for w in weights:
@@ -55,6 +48,7 @@ def sgd(dataset, max_epoch, alpha):
                 feat += 1
             
             #print(weights)
+            dp = [] #place the array of dot products
             dot_prod = np.dot(np.transpose(weights), input)
             dot_prod = abs(dot_prod - pred)
             dp.append(dot_prod)
@@ -75,35 +69,23 @@ print("----------------------------~WINE~:---------------------------- \n")
 sgd(wine, max_epoch, alpha)
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
-synth12 = pd.read_csv('synthetic-1.csv', header = None)
-synth13 = pd.read_csv('synthetic-1.csv', header = None)
-synth15 = pd.read_csv('synthetic-1.csv', header = None)
+synth1 = pd.read_csv('synthetic-1.csv', header = None)
+synth2 = pd.read_csv('synthetic-2.csv', header = None)
 
-synth22 = pd.read_csv('synthetic-2.csv', header = None)
-synth23 = pd.read_csv('synthetic-2.csv', header = None)
-synth25 = pd.read_csv('synthetic-2.csv', header = None)
+synth1.insert(0, 'x0', 1)
+synth2.insert(0, 'x0', 1)
 
-synth12 = pd.concat([pd.Series(1, index = synth12.index, name = 'x0'), synth12], axis = 1)
-synth13 = pd.concat([pd.Series(1, index = synth13.index, name = 'x0'), synth13], axis = 1)
-synth15 = pd.concat([pd.Series(1, index = synth15.index, name = 'x0'), synth15], axis = 1)
+synth1.columns = ['x0', 'input', 'quality']
+synth2.columns = ['x0', 'input', 'quality']
 
-synth22 = pd.concat([pd.Series(1, index = synth22.index, name = 'x0'), synth22], axis = 1)
-synth23 = pd.concat([pd.Series(1, index = synth23.index, name = 'x0'), synth23], axis = 1)
-synth25 = pd.concat([pd.Series(1, index = synth25.index, name = 'x0'), synth25], axis = 1)
+#print(synth1)
 
-synth12.columns = ['x0', 'input', 'quality']
-synth13.columns = ['x0', 'input', 'quality']
-synth15.columns = ['x0', 'input', 'quality']
-
-synth22.columns = ['x0', 'input', 'quality']
-synth23.columns = ['x0', 'input', 'quality']
-synth25.columns = ['x0', 'input', 'quality']
-
-def basis_exp(dataset, order): #the orders or 2, 3, and 5
+def basis_exp(df, order): #the orders or 2, 3, and 5
 #expand dataset to their respective orders
 #use exp_ind = 1 bc i already inserted a thing of 1's into my dataframe 
     ex = 0
     newcol = 2
+    dataset = df.copy(deep = True)
     for x in range(order - 1):
         #dataset[2 + exp_ind] = 0
         dataset.insert(newcol, newcol, 0)
@@ -117,40 +99,24 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         #print(og)
         for x in range(order - 1):
             ind+=1
-            ordered = og ** (ind)
+            ordered = (og) ** (ind)
             dataset.iloc[ex,ind] = ordered
         ex += 1
         
     return dataset
 
-b12 = basis_exp(synth12, 2)
-b22 = basis_exp(synth22, 2)
+b12 = basis_exp(synth1, 2)
+b22 = basis_exp(synth2, 2)
 
-b13 = basis_exp(synth13, 3)
-b23 = basis_exp(synth23, 3)
+b13 = basis_exp(synth1, 3)
+b23 = basis_exp(synth2, 3)
 
-b15 = basis_exp(synth15, 5)
-b25 = basis_exp(synth25, 5)
+b15 = basis_exp(synth1, 5)
+b25 = basis_exp(synth2, 5)
 #print(type(synth15))
 #print(synth15)
-
-b12.to_csv('newSynth1-2.csv', index = False)
-b12 = pd.read_csv('newSynth1-2.csv')
-b22.to_csv('newSynth2-2.csv', index = False)
-b22 = pd.read_csv('newSynth2-2.csv')
-
-b13.to_csv('newSynth1-3.csv', index = False)
-b13 = pd.read_csv('newSynth1-3.csv')
-b23.to_csv('newSynth2-3.csv', index = False)
-b23 = pd.read_csv('newSynth2-3.csv')
-
-b15.to_csv('newSynth1-5.csv', index = False)
-b15 = pd.read_csv('newSynth1-5.csv')
-b25.to_csv('newSynth2-5.csv', index = False)
-b25 = pd.read_csv('newSynth2-5.csv')
-
-print(b15)
-print(b25)
+#print(b15)
+#print(b25)
     
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
