@@ -103,13 +103,11 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
 #expand dataset to their respective orders
 #use exp_ind = 1 bc i already inserted a thing of 1's into my dataframe 
     ex = 0
-    exp_ind = 2
-    newcol = 1
+    newcol = 2
     for x in range(order - 1):
         #dataset[2 + exp_ind] = 0
+        dataset.insert(newcol, newcol, 0)
         newcol += 1
-        dataset.insert(exp_ind, newcol, 0)
-        exp_ind+=1
         #print(dataset)
         #expanding in accordance to order
         #use pandas concat instead and see if it works
@@ -125,56 +123,56 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
         
     return dataset
 
-basis_exp(synth12, 2)
-basis_exp(synth22, 2)
+b12 = basis_exp(synth12, 2)
+b22 = basis_exp(synth22, 2)
 
-basis_exp(synth13, 3)
-basis_exp(synth23, 3)
+b13 = basis_exp(synth13, 3)
+b23 = basis_exp(synth23, 3)
 
-basis_exp(synth15, 5)
-basis_exp(synth25, 5)
+b15 = basis_exp(synth15, 5)
+b25 = basis_exp(synth25, 5)
 #print(type(synth15))
 #print(synth15)
 
-synth12.to_csv('newSynth1-2.csv', index = False)
-synth12 = pd.read_csv('newSynth1-2.csv')
-synth22.to_csv('newSynth2-2.csv', index = False)
-synth22 = pd.read_csv('newSynth2-2.csv')
+b12.to_csv('newSynth1-2.csv', index = False)
+b12 = pd.read_csv('newSynth1-2.csv')
+b22.to_csv('newSynth2-2.csv', index = False)
+b22 = pd.read_csv('newSynth2-2.csv')
 
-synth13.to_csv('newSynth1-3.csv', index = False)
-synth13 = pd.read_csv('newSynth1-3.csv')
-synth23.to_csv('newSynth2-3.csv', index = False)
-synth23 = pd.read_csv('newSynth2-3.csv')
+b13.to_csv('newSynth1-3.csv', index = False)
+b13 = pd.read_csv('newSynth1-3.csv')
+b23.to_csv('newSynth2-3.csv', index = False)
+b23 = pd.read_csv('newSynth2-3.csv')
 
-synth15.to_csv('newSynth1-5.csv', index = False)
-synth15 = pd.read_csv('newSynth1-5.csv')
-synth25.to_csv('newSynth2-5.csv', index = False)
-synth25 = pd.read_csv('newSynth2-5.csv')
+b15.to_csv('newSynth1-5.csv', index = False)
+b15 = pd.read_csv('newSynth1-5.csv')
+b25.to_csv('newSynth2-5.csv', index = False)
+b25 = pd.read_csv('newSynth2-5.csv')
 
-print(synth12)
-print(synth22)
+print(b15)
+print(b25)
     
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
-sgd(synth12, max_epoch, alpha)
+sgd(b12, max_epoch, alpha)
 print("----------------------------Synth2-2:---------------------------- \n")
 #.5 and under
-sgd(synth22, max_epoch, alpha)
+sgd(b22, max_epoch, alpha)
 #print(synth12)
 #print(synth22)
 
 print("----------------------------Synth1-3:---------------------------- \n")
 #under 10
-sgd(synth13, max_epoch, alpha)
+sgd(b13, max_epoch, alpha)
 print("----------------------------Synth2-3:---------------------------- \n")
 #.5 and under
-sgd(synth23, max_epoch, alpha)
+sgd(b23, max_epoch, alpha)
 #benchmarks for part 1: 35, 10, 10 got this down
 #becnhmarks for part 2: .5, .5, .5 do not got this down
 
 print("----------------------------Synth1-5:---------------------------- \n")
 #under 10
-sgd(synth15, max_epoch, alpha)
+sgd(b15, max_epoch, alpha)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
-sgd(synth25, max_epoch, alpha)
+sgd(b25, max_epoch, alpha)
