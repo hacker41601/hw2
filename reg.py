@@ -99,7 +99,6 @@ def sgd(dataset, max_epoch, alpha):
 
 print("----------------------------~WINE~:---------------------------- \n")
 sgd(wine, max_epoch, alpha)
-
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
 synth12 = pd.read_csv('synthetic-1.csv', header = None)
@@ -152,6 +151,8 @@ def basis_exp(dataset, order): #the orders or 2, 3, and 5
             ordered = og ** (ind)
             dataset.iloc[ex,ind] = ordered
         ex += 1
+        
+    return dataset
 
 basis_exp(synth12, 2)
 basis_exp(synth22, 2)
@@ -162,7 +163,7 @@ basis_exp(synth23, 3)
 basis_exp(synth15, 5)
 basis_exp(synth25, 5)
 
-#print(synth15)
+#print(type(synth15))
 #print(synth25)
 
 synth12.to_csv('newSynth1-2.csv', index = False)
@@ -206,3 +207,6 @@ sgd(synth15, max_epoch, alpha)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
 sgd(synth25, max_epoch, alpha)
+
+#print(synth15)
+#print(synth25)
