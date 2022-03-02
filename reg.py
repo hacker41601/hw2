@@ -25,9 +25,6 @@ def sgd(dataset, max_epoch, alpha):
         y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
         for data in dataset:
             input = x.loc[ex]
-            #weights = np.random.uniform(0,1,len(input))
-        for data in dataset:
-            input = x.loc[ex]
             pred = y.loc[ex]
             #sgd uses randomized weights and handles a vector/datapoint at a time
             #initializing the random weights
