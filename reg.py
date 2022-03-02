@@ -7,7 +7,7 @@ from random import random
 import matplotlib.pyplot as plt
 #using SGD since it's allegedly faster
 #HYPERPARAMETERS are the alpha and epoch-------------------------------------------
-alpha = 0.001 #dr harrison said smaller numbers are better
+alpha = 0.1 #dr harrison said smaller numbers are better
 max_epoch = 100
 #-----------------------------------------------------------------------------------
 #pt 1--------------------------------------------------------------------------
@@ -25,7 +25,7 @@ def sgd(dataset, max_epoch, alpha):
         y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
         for data in dataset:
             input = x.loc[ex]
-            weights = np.random.uniform(0,1,len(input))
+            #weights = np.random.uniform(0,1,len(input))
         for data in dataset:
             input = x.loc[ex]
             pred = y.loc[ex]
@@ -33,7 +33,7 @@ def sgd(dataset, max_epoch, alpha):
             #initializing the random weights
             #weights = np.random.uniform(0,1,len(input))
             #1x12 * 12x1
-            #weights = np.random.uniform(0,1,len(input))
+            weights = np.random.uniform(0,1,len(input))
             #print(np.shape(weights))
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             raw_err = hypothesis - pred #scalar operation
@@ -117,28 +117,30 @@ b25 = basis_exp(synth2, 5)
 #print(synth15)
 #print(b15)
 #print(b25)
-    
+
+#SYNTHETIC DATA 2
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
 sgd(b12, max_epoch, alpha)
+print("----------------------------Synth1-3:---------------------------- \n")
+#under 10
+sgd(b13, max_epoch, alpha)
+print("----------------------------Synth1-5:---------------------------- \n")
+#under 10
+sgd(b15, max_epoch, alpha)
+
+#SYNTHETIC DATA 2
 print("----------------------------Synth2-2:---------------------------- \n")
 #.5 and under
 sgd(b22, max_epoch, alpha)
 #print(synth12)
 #print(synth22)
-
-print("----------------------------Synth1-3:---------------------------- \n")
-#under 10
-sgd(b13, max_epoch, alpha)
+#b22 has a larger MSE for some reason will need to adjust alpha
 print("----------------------------Synth2-3:---------------------------- \n")
 #.5 and under
 sgd(b23, max_epoch, alpha)
 #benchmarks for part 1: 35, 10, 10 got this down
 #becnhmarks for part 2: .5, .5, .5 do not got this down
-
-print("----------------------------Synth1-5:---------------------------- \n")
-#under 10
-sgd(b15, max_epoch, alpha)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
-sgd(b25, max_epoch, alpha)
+sgd(b25, max_epoch, .15)
