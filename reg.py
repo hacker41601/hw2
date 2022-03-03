@@ -141,3 +141,13 @@ sgd(b23, max_epoch, alpha)
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
 sgd(b25, max_epoch, .15)
+
+'''
+b12.to_csv('synth12.csv', index = False)
+b13.to_csv('synth13.csv', index = False)
+b15.to_csv('synth15.csv', index = False)
+
+b22.to_csv('synth22.csv', index = False)
+b23.to_csv('synth23.csv', index = False)
+b25.to_csv('synth25.csv', index = False)
+'''
