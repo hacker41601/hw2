@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 #using SGD since it's allegedly faster
 #HYPERPARAMETERS are the alpha and epoch-------------------------------------------
 alpha = 0.1 #dr harrison said smaller numbers are better
-max_epoch = 100
+max_epoch = 126
 #-----------------------------------------------------------------------------------
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
@@ -47,8 +47,9 @@ def sgd(dataset, max_epoch, alpha):
             #print(weights)
             dp = [] #place the array of dot products
             dot_prod = np.dot(np.transpose(weights), input)
-            dot_prod = abs(dot_prod - pred)
+            dot_prod = (dot_prod - pred)**2
             dp.append(dot_prod)
+            #print(dp)
             
             ex += 1
             
@@ -63,7 +64,7 @@ def sgd(dataset, max_epoch, alpha):
     print(" ")
 
 print("----------------------------~WINE~:---------------------------- \n")
-sgd(wine, max_epoch, alpha)
+sgd(wine, max_epoch, .15)
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
 synth1 = pd.read_csv('synthetic-1.csv', header = None)
@@ -124,7 +125,7 @@ print("----------------------------Synth1-3:---------------------------- \n")
 sgd(b13, max_epoch, alpha)
 print("----------------------------Synth1-5:---------------------------- \n")
 #under 10
-sgd(b15, max_epoch, alpha)
+sgd(b15, max_epoch, .3)
 
 #SYNTHETIC DATA 2
 print("----------------------------Synth2-2:---------------------------- \n")
