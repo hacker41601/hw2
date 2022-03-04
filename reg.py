@@ -151,3 +151,14 @@ b22.to_csv('synth22.csv', index = False)
 b23.to_csv('synth23.csv', index = False)
 b25.to_csv('synth25.csv', index = False)
 '''
+'''
+x = b15[5]
+y = b15['quality']
+
+mymodel = np.poly1d(np.polyfit(x, y, 5))
+myline = np.linspace(-30, 30, 100)
+
+plt.scatter(x, y)
+plt.plot(myline, mymodel(myline))
+plt.show()
+'''
