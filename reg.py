@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 #using SGD since it's allegedly faster
 #HYPERPARAMETERS are the alpha and epoch-------------------------------------------
 alpha = 0.1 #dr harrison said smaller numbers are better
-max_epoch = 126
+max_epoch = 42
 #-----------------------------------------------------------------------------------
 #pt 1--------------------------------------------------------------------------
 wine = pd.read_csv('winequality-red.csv')
@@ -18,12 +18,12 @@ wine.insert(0, 'x0', 1) #adding in the bias columns
 
 def sgd(dataset, max_epoch, alpha):
     curr_epoch = 0
-    
     while curr_epoch <= max_epoch:
         ex = 0 #the examples are to iterator through each row at a time
         x = dataset.drop(columns = 'quality') #input variables only
         y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
         weights = np.random.uniform(0,1,len(x.columns))
+        #print(weights)
         for data in dataset:
             input = x.loc[ex]
             pred = y.loc[ex]
@@ -31,7 +31,7 @@ def sgd(dataset, max_epoch, alpha):
             #initializing the random weights
             #weights = np.random.uniform(0,1,len(input))
             #1x12 * 12x1
-            weights = np.random.uniform(0,1,len(input))
+            #weights = np.random.uniform(0,1,len(input))
             #print(np.shape(weights))
             hypothesis = np.dot((np.transpose(weights)), input) #scalar operation
             raw_err = hypothesis - pred #scalar operation
@@ -65,11 +65,11 @@ def sgd(dataset, max_epoch, alpha):
     print(" ")
 
 print("----------------------------~WINE~:---------------------------- \n")
-sgd(wine, max_epoch, .15)
+sgd(wine, max_epoch, .015)
 #pt 2 --------------------------------------------------------------------------------------------------------
 #this part is using polynomial regression with basis expansion
-synth1 = pd.read_csv('synthetic-1.csv', header = None)
-synth2 = pd.read_csv('synthetic-2.csv', header = None)
+synth1 = pd.read_csv('synthetic-1.csv')
+synth2 = pd.read_csv('synthetic-2.csv')
 
 synth1.insert(0, 'x0', 1)
 synth2.insert(0, 'x0', 1)
@@ -120,13 +120,13 @@ b25 = basis_exp(synth2, 5)
 #SYNTHETIC DATA 2
 print("----------------------------Synth1-2:---------------------------- \n")
 #under 35
-sgd(b12, max_epoch, alpha)
+sgd(b12, max_epoch, .15)
 print("----------------------------Synth1-3:---------------------------- \n")
 #under 10
 sgd(b13, max_epoch, alpha)
 print("----------------------------Synth1-5:---------------------------- \n")
 #under 10
-sgd(b15, max_epoch, .3)
+sgd(b15, max_epoch, .01)
 
 #SYNTHETIC DATA 2
 print("----------------------------Synth2-2:---------------------------- \n")
@@ -142,7 +142,7 @@ sgd(b23, max_epoch, alpha)
 #becnhmarks for part 2: .5, .5, .5 do not got this down
 print("----------------------------Synth2-5:---------------------------- \n")
 #.5 and under
-sgd(b25, max_epoch, .15)
+sgd(b25, max_epoch, .001)
 
 '''
 b12.to_csv('synth12.csv', index = False)
