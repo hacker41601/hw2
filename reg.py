@@ -23,6 +23,7 @@ def sgd(dataset, max_epoch, alpha):
         ex = 0 #the examples are to iterator through each row at a time
         x = dataset.drop(columns = 'quality') #input variables only
         y = dataset.iloc[:,(len(dataset.columns)-1)] #output variable only
+        weights = np.random.uniform(0,1,len(x.columns))
         for data in dataset:
             input = x.loc[ex]
             pred = y.loc[ex]
